@@ -76,7 +76,7 @@ def related_nodes(f: Callable) -> Callable:
 
 
 class BaseNode(CommonModel):  # pyre-ignore[13]
-    __primaryproperty__: ClassVar[str] = __name__
+    __primaryproperty__: ClassVar[str]
     __primarylabel__: ClassVar[Optional[str]]
     __secondarylabels__: ClassVar[List[str]] = []
 
@@ -87,9 +87,7 @@ class BaseNode(CommonModel):  # pyre-ignore[13]
         # these are to provide common properties to be used by subclassed nodes
         # but shouldn't be put in the graph or even instantiated
         if self.__primarylabel__ is None:
-            raise NotImplementedError(
-                "Nodes to be used in the graph must define a primary label."
-            )
+            self.__primarylabel__ = self.__class__.__name__
 
     def __str__(self) -> str:
         return str(self.get_pp())
