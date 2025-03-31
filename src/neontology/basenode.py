@@ -87,7 +87,14 @@ class BaseNode(CommonModel):  # pyre-ignore[13]
         # these are to provide common properties to be used by subclassed nodes
         # but shouldn't be put in the graph or even instantiated
         if self.__primarylabel__ is None:
-            self.__primarylabel__ = self.__class__.__name__
+            raise NotImplementedError(
+                "Nodes to be used in the graph must define a primary label."
+            )
+
+    @classmethod
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+        cls.__primarylabel__ = cls.__name__
 
     def __str__(self) -> str:
         return str(self.get_pp())
