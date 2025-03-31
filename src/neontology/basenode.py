@@ -76,7 +76,7 @@ def related_nodes(f: Callable) -> Callable:
 
 
 class BaseNode(CommonModel):  # pyre-ignore[13]
-    __primaryproperty__: ClassVar[str]
+    __primaryproperty__: ClassVar[str] = __name__
     __primarylabel__: ClassVar[Optional[str]]
     __secondarylabels__: ClassVar[List[str]] = []
 
